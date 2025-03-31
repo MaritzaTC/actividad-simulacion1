@@ -80,7 +80,7 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    <br>
    
    ![5](https://github.com/user-attachments/assets/9e917a32-4bc1-498b-9b42-75d5b2a1689f)
-     -  Process 0: Comenzó a ejecutarse y ocupó la CPU durante 4 unidades de tiempo, como esperábamos.
+     - Process 0: Comenzó a ejecutarse y ocupó la CPU durante 4 unidades de tiempo, como esperábamos.
      - Process 1: Emitió una operación de I/O en el tiempo 5. Este proceso se bloqueó después de emitir la I/O, ya que no se puede ejecutar hasta que la operación de I/O       
      termine.
   
@@ -100,13 +100,13 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    <summary>Answer</summary>
    Al ejecutar el comando tenemos: 
    <br> 
-      
-   ![6](https://github.com/user-attachments/assets/c57d338c-8ae1-4902-ac19-1aa48812c20b)
+
+   ![6](https://github.com/user-attachments/assets/e8dbdeee-2b24-4f2b-a91f-585eac7c6f5e)
 
    ##  ¿Qué pasa ahora?
-   - Tiempo 1: El Proceso 0 comienza y emite la operación de I/O. Esto significa que se bloqueará inmediatamente y esperará a que se complete la I/O, la CPU no es utilizada por el proceso 0 en este momento.
-   - Tiempo 2-5: La CPU ahora está libre, por lo que el proceso 1 comienza a ejecutarse, donde usa la CPU para sus 4 instrucciones que requieren CPU.
-   - Tiempo 6: Después de que el proceso 1 termine, el Proceso 0 podrá continuar y completar su operación de I/O (ahora se marca como io_done).
+    - Tiempo 1: El Proceso 0 comienza y emite la operación de I/O. Esto significa que se bloqueará inmediatamente y esperará a que se complete la I/O, la CPU no es utilizada por el proceso 0 en este momento.
+    - Tiempo 2-5: La CPU ahora está libre, por lo que el proceso 1 comienza a ejecutarse, donde usa la CPU para sus 4 instrucciones que requieren CPU.
+    - Tiempo 6: Después de que el proceso 1 termine, el Proceso 0 podrá continuar y completar su operación de I/O (ahora se marca como io_done).
      
    ## ¿Los resultados de la simulación confirmaron esto? 
    ❎ Cuando usamos el comando:
@@ -114,19 +114,28 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    ![7](https://github.com/user-attachments/assets/ce1d5564-04d4-4ddd-a6bf-964b651ab52b)
 
    <br> 
+   
+   ##  ¿Qué pasa ahora?
+   
    - Tiempo 1: El Proceso 0 comienza y emite la operación de I/O. Esto significa que se bloqueará inmediatamente y esperará a que se complete la I/O, la CPU no es utilizada por el proceso 0 en este momento.
    - Tiempo 2-5: La CPU ahora está libre, por lo que el proceso 1 comienza a ejecutarse, donde usa la CPU para sus 4 instrucciones que requieren CPU.
    - Tiempo 6: El proceso 1 termina sus instrucciones, y el proceso 0 todavía está bloqueado, esperando a que su I/O termine.
    - Tiempo 7: Después de que el proceso 1 termine, el Proceso 0 podrá continuar y completar su operación de I/O (ahora se marca como io_done).
    
     ## ¿Importa cambiar el orden? ¿Por qué?
-    El orden sí influye porque determina cómo se manejan las operaciones de CPU e I/O, afectando el tiempo total de ejecución, la eficiencia de la CPU y el tiempo de espera de I/O.
+    El orden sí influye, porque determina cómo se manejan las operaciones de CPU e I/O, afectando el tiempo total de ejecución, la eficiencia de la CPU y el tiempo de espera de I/O.
 
+   ![8](https://github.com/user-attachments/assets/9be1d920-769f-4c09-b342-474c998dead6)
+
+   ### Orden de ejecución de procesos
     - El sistema no ejecuta todos los procesos simultáneamente, sino que va cambiando entre ellos.
     - En el primer caso, el proceso de I/O tiene que esperar a que el proceso de CPU termine, esto lleva más tiempo debido a la secuencia de ejecución.
     - En el segundo caso, el primer proceso se bloquea rápidamente al hacer I/O, y luego la CPU se usa más intensivamente para el segundo proceso. 
 
-
+   ### Uso de la CPU e I/O
+    - En el segundo caso, debido a que el proceso de I/O se ejecuta primero, se termina más rápido, lo que permite que la CPU se use casi de manera continua durante el resto del tiempo. 
+    - En cambio, en el primer caso, la CPU no se utiliza de manera tan eficiente porque el primer proceso consume mucha CPU antes de que el segundo proceso haga I/O.
+  
    </details>
    <br>
 
