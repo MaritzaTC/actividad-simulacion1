@@ -78,7 +78,7 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    <br>
    
    ![5](https://github.com/user-attachments/assets/9e917a32-4bc1-498b-9b42-75d5b2a1689f)
-     -  Process 0:omenzó a ejecutarse y ocupó la CPU durante 4 unidades de tiempo, como esperábamos.
+     -  Process 0: Comenzó a ejecutarse y ocupó la CPU durante 4 unidades de tiempo, como esperábamos.
      - Process 1: Emitió una operación de I/O en el tiempo 5. Este proceso se bloqueó después de emitir la I/O, ya que no se puede ejecutar hasta que la operación de I/O       
      termine. 
        El proceso permaneció bloqueado [6-10] hasta que la I/O se completó.
