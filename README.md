@@ -59,7 +59,7 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    <br>
    
 
-3. Now run with these flags: `./process-run.py -l 4:100,1:0`. These flags specify one process with 4 instructions (all to use the CPU), and one that simply issues an I/O and waits for it to be done. How long does it take to complete both processes? Use `-c` and `-p` to find out if you were right. 
+2. Now run with these flags: `./process-run.py -l 4:100,1:0`. These flags specify one process with 4 instructions (all to use the CPU), and one that simply issues an I/O and waits for it to be done. How long does it take to complete both processes? Use `-c` and `-p` to find out if you were right. 
    
    <details>
    <summary>Answer</summary>
@@ -94,15 +94,39 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    </details>
    <br>
 
-5. Switch the order of the processes: `-l 1:0,4:100`. What happens now? Does switching the order matter? Why? (As always, use `-c` and `-p` to see if you were right)
+3. Switch the order of the processes: `-l 1:0,4:100`. What happens now? Does switching the order matter? Why? (As always, use `-c` and `-p` to see if you were right)
    
    <details>
    <summary>Answer</summary>
    Al ejecutar el comando tenemos: 
    <br> 
+      
    ![6](https://github.com/user-attachments/assets/c57d338c-8ae1-4902-ac19-1aa48812c20b)
 
-   ## 
+   ##  ¿Qué pasa ahora?
+   - Tiempo 1: El Proceso 0 comienza y emite la operación de I/O. Esto significa que se bloqueará inmediatamente y esperará a que se complete la I/O, la CPU no es utilizada por el proceso 0 en este momento.
+   - Tiempo 2-5: La CPU ahora está libre, por lo que el proceso 1 comienza a ejecutarse, donde usa la CPU para sus 4 instrucciones que requieren CPU.
+   - Tiempo 6: Después de que el proceso 1 termine, el Proceso 0 podrá continuar y completar su operación de I/O (ahora se marca como io_done).
+     
+   ## ¿Los resultados de la simulación confirmaron esto? 
+   ❎ Cuando usamos el comando:
+   <br>
+   ![7](https://github.com/user-attachments/assets/ce1d5564-04d4-4ddd-a6bf-964b651ab52b)
+
+   <br> 
+   - Tiempo 1: El Proceso 0 comienza y emite la operación de I/O. Esto significa que se bloqueará inmediatamente y esperará a que se complete la I/O, la CPU no es utilizada por el proceso 0 en este momento.
+   - Tiempo 2-5: La CPU ahora está libre, por lo que el proceso 1 comienza a ejecutarse, donde usa la CPU para sus 4 instrucciones que requieren CPU.
+   - Tiempo 6: El proceso 1 termina sus instrucciones, y el proceso 0 todavía está bloqueado, esperando a que su I/O termine.
+   - Tiempo 7: Después de que el proceso 1 termine, el Proceso 0 podrá continuar y completar su operación de I/O (ahora se marca como io_done).
+   
+    ## ¿Importa cambiar el orden? ¿Por qué?
+    El orden sí influye porque determina cómo se manejan las operaciones de CPU e I/O, afectando el tiempo total de ejecución, la eficiencia de la CPU y el tiempo de espera de I/O.
+
+    - El sistema no ejecuta todos los procesos simultáneamente, sino que va cambiando entre ellos.
+    - En el primer caso, el proceso de I/O tiene que esperar a que el proceso de CPU termine, esto lleva más tiempo debido a la secuencia de ejecución.
+    - En el segundo caso, el primer proceso se bloquea rápidamente al hacer I/O, y luego la CPU se usa más intensivamente para el segundo proceso. 
+
+
    </details>
    <br>
 
