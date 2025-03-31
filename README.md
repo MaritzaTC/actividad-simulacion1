@@ -125,7 +125,8 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
     ## ¿Importa cambiar el orden? ¿Por qué?
     El orden sí influye, porque determina cómo se manejan las operaciones de CPU e I/O, afectando el tiempo total de ejecución, la eficiencia de la CPU y el tiempo de espera de I/O.
 
-   ![8](https://github.com/user-attachments/assets/9be1d920-769f-4c09-b342-474c998dead6)
+   ![8](https://github.com/user-attachments/assets/603113af-0764-46b8-9e39-35cf8b51beb3)
+
 
    ### Orden de ejecución de procesos
     - El sistema no ejecuta todos los procesos simultáneamente, sino que va cambiando entre ellos.
@@ -139,11 +140,32 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    </details>
    <br>
 
-6. We'll now explore some of the other flags. One important flag is `-S`, which determines how the system reacts when a process issues an I/O. With the flag set to SWITCH ON END, the system will NOT switch to another process while one is doing I/O, instead waiting until the process is completely finished. What happens when you run the following two processes (`-l 1:0,4:100 -c -S SWITCH ON END`), one doing I/O and the other doing CPU work?
+4. We'll now explore some of the other flags. One important flag is `-S`, which determines how the system reacts when a process issues an I/O. With the flag set to SWITCH ON END, the system will NOT switch to another process while one is doing I/O, instead waiting until the process is completely finished. What happens when you run the following two processes (`-l 1:0,4:100 -c -S SWITCH ON END`), one doing I/O and the other doing CPU work?
    
    <details>
    <summary>Answer</summary>
-   Coloque aqui su respuerta
+   Al ejecutar el comando tenemos: 
+   <br> 
+      
+   ![9](https://github.com/user-attachments/assets/f4d51869-c750-4990-851d-5bb4a8960518)
+
+   ##  ¿Qué pasa ahora?
+   - Durante el primer ciclo (1), el proceso 0 está ejecutando I/O (RUN:io).
+   - Luego, debido al flag SWITCH_ON_END, el proceso 0 permanece bloqueado durante todo el tiempo que esté realizando la operación de I/O.
+   - El proceso 1 no comienza hasta que el proceso 0 haya terminado todo su trabajo de I/O, lo que puede ser una razón por la que el CPU no se utiliza en ese tiempo.
+   - Una vez que el proceso 0 ha completado la operación de I/O, el proceso 1 comienza a ejecutar sus instrucciones de CPU.
+
+   ## Estadísticas finales
+
+    ![10](https://github.com/user-attachments/assets/58379370-3d16-4ad4-8800-00a1df56e02e)
+
+
+   ## Conclusión
+   El flag SWITCH_ON_END asegura que el sistema no cambie a otro proceso mientras uno está esperando o realizando una operación de I/O, esto implica que el proceso que está            realizando I/O ocupa toda la CPU (en términos de tiempo de espera) mientras su operación de I/O no haya terminado. Después de que el proceso de I/O termine, el sistema cambia al 
+   siguiente proceso, que en este caso es el proceso 1, el cual realiza trabajo de CPU.
+
+   Este comportamiento es reflejado en las estadísticas, donde la CPU está ocupada por el proceso 1 después de que el proceso 0 haya terminado su I/O.
+
    </details>
    <br>
 
