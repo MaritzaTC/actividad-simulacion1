@@ -35,6 +35,7 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
 
    Los procesos están configurados para usar solo la CPU en todas sus instrucciones, sin realizar operaciones de I/O, lo que garantiza que la utilización de la CPU sea del 100%, ya 
    que no hay tiempo perdido esperando a que se completen operaciones de entrada/salida, y la CPU está constantemente ocupada ejecutando instrucciones.
+   
    <br>
    
    ### ¿Por qué sabes esto? 
@@ -51,13 +52,14 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
       
    `./process-run.py -l 5:100,5:100 -c -p`
    <br>
+   
     ![3](https://github.com/user-attachments/assets/10d504f6-8243-4e8e-bf6d-84cd5fdb56e5)
    
     Con el valor de **CPU Busy**, podemos confirmar que la CPU estuvo ocupada todo el tiempo y nunca inactiva, ya que el tiempo registrado como ocupado coincide con el tiempo total       de      la simulación, lo que indica que no hubo períodos sin actividad en la CPU.
    <br>
    
 
-2. Now run with these flags: `./process-run.py -l 4:100,1:0`. These flags specify one process with 4 instructions (all to use the CPU), and one that simply issues an I/O and waits for it to be done. How long does it take to complete both processes? Use `-c` and `-p` to find out if you were right. 
+3. Now run with these flags: `./process-run.py -l 4:100,1:0`. These flags specify one process with 4 instructions (all to use the CPU), and one that simply issues an I/O and waits for it to be done. How long does it take to complete both processes? Use `-c` and `-p` to find out if you were right. 
    
    <details>
    <summary>Answer</summary>
@@ -80,13 +82,18 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    ![5](https://github.com/user-attachments/assets/9e917a32-4bc1-498b-9b42-75d5b2a1689f)
      -  Process 0: Comenzó a ejecutarse y ocupó la CPU durante 4 unidades de tiempo, como esperábamos.
      - Process 1: Emitió una operación de I/O en el tiempo 5. Este proceso se bloqueó después de emitir la I/O, ya que no se puede ejecutar hasta que la operación de I/O       
-     termine. 
-       El proceso permaneció bloqueado [6-10] hasta que la I/O se completó.
-       Finalmente, en el tiempo 11, Proceso 1 completó la operación de I/O y ejecutó la instrucción io_done, terminando así su ejecución.
+     termine.
+  
+   <br>
+   
+   El proceso permaneció bloqueado [6-10] hasta que la I/O se completó.
+
+   
+    Finalmente, en el tiempo 11, el proceso 1 completó la operación de I/O y ejecutó la instrucción io_done, terminando así su ejecución.
    </details>
    <br>
 
-3. Switch the order of the processes: `-l 1:0,4:100`. What happens now? Does switching the order matter? Why? (As always, use `-c` and `-p` to see if you were right)
+4. Switch the order of the processes: `-l 1:0,4:100`. What happens now? Does switching the order matter? Why? (As always, use `-c` and `-p` to see if you were right)
    
    <details>
    <summary>Answer</summary>
