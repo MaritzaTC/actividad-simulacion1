@@ -201,8 +201,23 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    ![13](https://github.com/user-attachments/assets/39fa6158-c3f2-401b-8ad2-82de6aff65b1)
 
    ## ¿Qué sucede al ejecutar esta combinación de procesos?
+   Lo primero será conocer los procesos involucradros, tenemos:
+   - Proceso 0: I/O que no se ejecuta inmediatamente después de completar, debido a la configuración IO_RUN_LATER.
+   - Procesos 1, 2 y 3: Realizan trabajo de CPU, usando las instrucciones especificadas.
 
-   ## ¿Se utilizan eficazmente los recursos del sistema? 
+   ###  Comportamiento de cambio de proceso (-S SWITCH_ON_IO)
+   El sistema cambia de proceso cada vez que uno de ellos está esperando realizar I/O, lo que permite que otro proceso use la CPU mientras uno está bloqueado esperando la 
+   finalización de una operación de I/O.
+
+   ### Comportamiento cuando I/O finaliza (-I IO_RUN_LATER)
+   Aunque un proceso termina su I/O, no se ejecuta inmediatamente, lo que significa que el sistema continúa ejecutando el proceso que está usando la CPU hasta que termine.
+
+   ### Utilización de los recursos
+   - El 67.74% del tiempo la CPU está ocupada. Esto indica que la CPU está en uso, pero no de manera continua, ya que hay períodos en los que los procesos están bloqueados          esperando I/O o esperando para ejecutarse después de completar I/O.
+   - El 48.39% del tiempo está ocupado realizando I/O. Esto sugiere que, aunque la CPU se usa bastante, también hay una cantidad significativa de tiempo dedicado a las operaciones       de I/O, pero el sistema no está optimizando completamente el uso de los recursos de CPU mientras los procesos esperan la finalización de las operaciones de I/O.
+
+    ## ¿Se utilizan eficazmente los recursos del sistema?
+   No completamente. Aunque la CPU se utiliza una buena parte del tiempo (67.74%), no está siendo utilizada de manera continua y eficiente debido a la configuración IO_RUN_LATER. Los procesos que están esperando I/O no se ejecutan inmediatamente cuando finaliza la I/O, lo que reduce la eficiencia en el uso de la CPU. Además, los procesos de I/O no se ejecutan de inmediato y, por lo tanto, se generan períodos de inactividad de la CPU que podrían haberse aprovechado mejor si el proceso que terminó su I/O se hubiera ejecutado de inmediato.
    </details>
    <br>
 
