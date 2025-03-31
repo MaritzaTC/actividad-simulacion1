@@ -225,7 +225,25 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    
    <details>
    <summary>Answer</summary>
-   Coloque aqui su respuerta
+    Al ejecutar el comando tenemos: 
+   <br> 
+      
+      ![14](https://github.com/user-attachments/assets/fdc8a224-9479-4428-9108-6807e8bc3e10)
+   ## ¿En qué se diferencia este comportamiento?
+   Cuando se ejecuta el comando con la opción `-I IO_RUN_IMMEDIATE`, el comportamiento de la simulación cambia significativamente en comparación con `IO_RUN_LATER`.
+   - Esto se debe a que con  `IO_RUN_LATER` después de que un proceso realiza una operación de I/O, el sistema no lo ejecuta inmediatamente, lo que significa que la CPU puede 
+    quedar inactiva mientras espera que otro proceso termine o esté listo para ejecutarse y también el proceso que completó la I/O debe esperar su turno para ejecutarse, lo que 
+     puede generar períodos de inactividad en la CPU.
+    - En cambio con `-I IO_RUN_IMMEDIATE` tan pronto como un proceso termina una operación de I/O, el sistema lo ejecuta inmediatamente (si está listo), lo que reduce el tiempo de 
+     espera y maximiza la utilización de la CPU y en el ejemplo, cuando el proceso 0 completa su I/O, se ejecuta inmediatamente después de haber estado bloqueado, aprovechando el 
+     tiempo de la CPU de manera más eficiente.
+   ## ¿Por qué podría ser recomendable ejecutar de nuevo un proceso que acaba de completar una I/O?
+
+   Ejecutar de inmediato un proceso que acaba de completar una I/O puede ser ventajoso por varias razones:
+   - Ejecutar el proceso de inmediato asegura que la CPU no se quede inactiva mientras espera que otros procesos estén listos, esto maximiza la utilización de los recursos de la 
+    CPU, evitando tiempos de inactividad innecesarios.
+   -  Al ejecutar el proceso inmediatamente después de completar la I/O, se reduce el tiempo de espera y se acelera el ciclo de vida de cada proceso, esto es especialmente útil en       sistemas con múltiples procesos, donde el tiempo de espera entre I/O y CPU puede acumularse, alargando innecesariamente el tiempo total de ejecución.
+   - Si hay múltiples procesos con operaciones de I/O, ejecutar el proceso inmediatamente después de completar la I/O asegura que cada proceso se retome de manera oportuna, lo que       ayuda a balancear la carga del sistema y evitar bloqueos prolongados o inactividad de la CPU.
    </details>
    <br>
 
