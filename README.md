@@ -195,7 +195,14 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    
    <details>
    <summary>Answer</summary>
-   Coloque aqui su respuerta
+   Al ejecutar el comando tenemos: 
+   <br> 
+      
+   ![13](https://github.com/user-attachments/assets/39fa6158-c3f2-401b-8ad2-82de6aff65b1)
+
+   ## ¿Qué sucede al ejecutar esta combinación de procesos?
+
+   ## ¿Se utilizan eficazmente los recursos del sistema? 
    </details>
    <br>
 
