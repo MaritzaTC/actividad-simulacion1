@@ -90,10 +90,11 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
 
    
     Finalmente, en el tiempo 11, el proceso 1 completó la operación de I/O y ejecutó la instrucción io_done, terminando así su ejecución.
+    Por lo tanto, el tiempo de ejecución de ambos procesos es de  **11** unidades de tiempo.
    </details>
    <br>
 
-4. Switch the order of the processes: `-l 1:0,4:100`. What happens now? Does switching the order matter? Why? (As always, use `-c` and `-p` to see if you were right)
+5. Switch the order of the processes: `-l 1:0,4:100`. What happens now? Does switching the order matter? Why? (As always, use `-c` and `-p` to see if you were right)
    
    <details>
    <summary>Answer</summary>
@@ -105,7 +106,7 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    </details>
    <br>
 
-5. We'll now explore some of the other flags. One important flag is `-S`, which determines how the system reacts when a process issues an I/O. With the flag set to SWITCH ON END, the system will NOT switch to another process while one is doing I/O, instead waiting until the process is completely finished. What happens when you run the following two processes (`-l 1:0,4:100 -c -S SWITCH ON END`), one doing I/O and the other doing CPU work?
+6. We'll now explore some of the other flags. One important flag is `-S`, which determines how the system reacts when a process issues an I/O. With the flag set to SWITCH ON END, the system will NOT switch to another process while one is doing I/O, instead waiting until the process is completely finished. What happens when you run the following two processes (`-l 1:0,4:100 -c -S SWITCH ON END`), one doing I/O and the other doing CPU work?
    
    <details>
    <summary>Answer</summary>
@@ -113,7 +114,7 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    </details>
    <br>
 
-6. Now, run the same processes, but with the switching behavior set to switch to another process whenever one is WAITING for I/O (`-l 1:0,4:100 -c -S SWITCH ON IO`). What happens now? Use `-c` and `-p` to confirm that you are right.
+7. Now, run the same processes, but with the switching behavior set to switch to another process whenever one is WAITING for I/O (`-l 1:0,4:100 -c -S SWITCH ON IO`). What happens now? Use `-c` and `-p` to confirm that you are right.
    
    <details>
    <summary>Answer</summary>
@@ -121,7 +122,7 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    </details>
    <br>
 
-7. One other important behavior is what to do when an I/O completes. With `-I IO RUN LATER`, when an I/O completes, the process that issued it is not necessarily run right away; rather, whatever was running at the time keeps running. What happens when you run this combination of processes? (`./process-run.py -l 3:0,5:100,5:100,5:100 -S SWITCH ON IO -c -p -I IO RUN LATER`) Are system resources being effectively utilized?
+8. One other important behavior is what to do when an I/O completes. With `-I IO RUN LATER`, when an I/O completes, the process that issued it is not necessarily run right away; rather, whatever was running at the time keeps running. What happens when you run this combination of processes? (`./process-run.py -l 3:0,5:100,5:100,5:100 -S SWITCH ON IO -c -p -I IO RUN LATER`) Are system resources being effectively utilized?
    
    <details>
    <summary>Answer</summary>
@@ -129,7 +130,7 @@ This program, [`process-run.py`](process-run.py), allows you to see how process 
    </details>
    <br>
 
-8. Now run the same processes, but with `-I IO RUN IMMEDIATE` set, which immediately runs the process that issued the I/O. How does this behavior differ? Why might running a process that just completed an I/O again be a good idea?
+9. Now run the same processes, but with `-I IO RUN IMMEDIATE` set, which immediately runs the process that issued the I/O. How does this behavior differ? Why might running a process that just completed an I/O again be a good idea?
    
    <details>
    <summary>Answer</summary>
