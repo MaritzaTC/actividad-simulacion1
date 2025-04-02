@@ -3,7 +3,7 @@
 |Integrante|correo|usuario github|
 |---|---|---|
 |Maritza Tabarez Cárdenas|maritza.tabarezc@udea.edu.co|MaritzaTC|
-|Nombre completo integrante 2|correo integrante 2|gihub user integrante 2|
+|Juan David Vásquez Ospina|juan.vasquez21@udea.edu.co |JuanVasquezO|
 
 ## Instrucciones
 
